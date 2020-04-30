@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
+<configuration scan="true" scanPeriod="10 seconds">
+	<property name="log.path" value="logs" />
+	<!-- 文件输出 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<!-- 输出格式-->
+			<pattern>
+				[ %-5level] [%date{yyyy-MM-dd HH:mm:ss}] %logger{96} [%line] - %msg%n
+			</pattern>
+			<!-- 此处设置字符集 -->
+			<charset>UTF-8</charset> 
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily 配置日志所生成的目录以及生成文件名的规则 -->
+			<fileNamePattern>${log.path}/mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- 单个日志文件最大64M，超过后，会自行建立 -->
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 过滤DEBUG类型日志不输出到文件 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>UTF-8</level>
+		</filter>
+		<!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
+		<prudent>true</prudent>
+	</appender>
+
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- 输出格式-->
+			<pattern>
+				[ %-5level] [%date{yyyy-MM-dd HH:mm:ss}] %logger{96} [%line] - %msg%n
+			</pattern>
+			<!-- 此处设置字符集-->
+			<charset>UTF-8</charset>
+		</encoder>
+		<!-- 过滤DEBUG类型日志不输出 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		
+	</appender>
+
+	<!-- 打印级别，大小写无关（最常用的几种）：DEBUG, INFO, WARN, ERROR ;ALL表示所有级别都打印 -->
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+	<logger name="com.zwj" level="INFO" >
+	</logger>
+</configuration>  

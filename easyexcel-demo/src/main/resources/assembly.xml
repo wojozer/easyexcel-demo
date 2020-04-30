@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+  <id>app</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <dependencySets>
+    <dependencySet>
+      <useProjectArtifact>true</useProjectArtifact>
+      <includes>
+        <include>${project.groupId}:${project.artifactId}</include>
+      </includes>
+      <outputDirectory>/</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>src/main/resources/</directory>
+      <outputDirectory>./conf</outputDirectory>
+      <includes>
+        <include>application.properties</include>
+        <include>application-dev.properties</include>
+        <include>logback.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>src/bin</directory>
+      <outputDirectory>./bin</outputDirectory>
+      <includes>
+        <include>start.sh</include>
+        <include>stop.sh</include>
+        <include>restart.sh</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>
